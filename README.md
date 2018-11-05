@@ -5,7 +5,7 @@ http://rjhcoding.com/avrc-sd-interface-2.php
 
 Edit the makefile and change MCU to the microcontroller you are using, and AVRDUDE_PROGRAMMER to your programmer.
 
-Type make to build. Expected output:
+Type 'make' to build:
 ```
 Compiling: main.c
 avr-gcc -c -mmcu=atmega328p -I. -DF_CPU=16000000UL  -Os 
