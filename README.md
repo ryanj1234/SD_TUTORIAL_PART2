@@ -6,7 +6,6 @@ http://rjhcoding.com/avrc-sd-interface-2.php
 Edit the makefile and change MCU to the microcontroller you are using, and AVRDUDE_PROGRAMMER to your programmer.
 
 Type make to build. Expected output:
-
 ```
 Compiling: main.c
 avr-gcc -c -mmcu=atmega328p -I. -DF_CPU=16000000UL  -Os -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wall -Wstrict-prototypes -Wa,-adhlns=main.lst  -std=gnu99 main.c -o main.o
@@ -23,4 +22,37 @@ avr-objcopy -j .eeprom --set-section-flags .eeprom=alloc,load \
 avr-objcopy: --change-section-lma .eeprom=0x0000000000000000 never used
 ```
 
-type make program to write to device:
+Type make program to write to device:
+```
+avrdude -p atmega328p -B 10 -c usbtiny -U flash:w:main.hex
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e950f (probably m328p)
+avrdude: NOTE: "flash" memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: reading input file "main.hex"
+avrdude: input file main.hex auto detected as Intel Hex
+avrdude: writing flash (2036 bytes):
+
+Writing | ################################################## | 100% 3.14s
+
+avrdude: 2036 bytes of flash written
+avrdude: verifying flash memory against main.hex:
+avrdude: load data flash data from input file main.hex:
+avrdude: input file main.hex auto detected as Intel Hex
+avrdude: input file main.hex contains 2036 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 1.93s
+
+avrdude: verifying ...
+avrdude: 2036 bytes of flash verified
+
+avrdude: safemode: Fuses OK (E:FF, H:D9, L:FF)
+
+avrdude done.  Thank you.
+```
